@@ -1,0 +1,215 @@
+import 'package:flutter/material.dart';
+
+// Definizione del modello per il vestito
+class Dress {
+  final String name;
+  final String color;
+  final String imageUrl;
+
+  Dress({required this.name, required this.color, required this.imageUrl});
+}
+
+// Pagina principale per visualizzare la lista dei vestiti
+class VestitiPage extends StatefulWidget {
+  const VestitiPage({super.key});
+
+  @override
+  State<VestitiPage> createState() => _VestitiPageState();
+}
+
+class _VestitiPageState extends State<VestitiPage> {
+  // Lista di esempio di vestiti
+  final List<Dress> _dresses = [
+    Dress(
+        name: 'Abito da Sera',
+        color: 'Nero',
+        imageUrl:
+            'https://images.unsplash.com/photo-1579737119047-817f300c7f76?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'),
+    Dress(
+        name: 'Vestito Estivo',
+        color: 'Giallo',
+        imageUrl:
+            'https://images.unsplash.com/photo-1621242337777-a8b23c93e430?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'),
+    Dress(
+        name: 'Tuta Elegante',
+        color: 'Blu',
+        imageUrl:
+            'https://images.unsplash.com/photo-1549487494-b1b701d4b684?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'),
+  ];
+
+  // Metodo per aggiungere un nuovo vestito alla lista
+  void _addDress(Dress newDress) {
+    setState(() {
+      _dresses.add(newDress);
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('La Mia Collezione di Vestiti'),
+      ),
+      body: ListView.builder(
+        itemCount: _dresses.length,
+        itemBuilder: (context, index) {
+          final dress = _dresses[index];
+          return Card(
+            margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+            elevation: 4.0,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10.0),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Row(
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(8.0),
+                    child: Image.network(
+                      dress.imageUrl,
+                      width: 90,
+                      height: 90,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  const SizedBox(width: 16.0),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          dress.name,
+                          style: const TextStyle(
+                            fontSize: 18.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(height: 4.0),
+                        Text(
+                          'Colore: ${dress.color}',
+                          style: TextStyle(
+                            fontSize: 14.0,
+                            color: Colors.grey[600],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          /* TODO: Implementa la logica per aggiungere un nuovo vestito
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => AddDressPage(onAdd: _addDress),
+            ),
+          ); */
+        },
+        child: const Icon(Icons.add),
+      ),
+    );
+  }
+}
+
+/*
+// Pagina per aggiungere un nuovo vestito
+class AddDressPage extends StatefulWidget {
+  final Function(Dress) onAdd;
+
+  const AddDressPage({super.key, required this.onAdd});
+
+  @override
+  State<AddDressPage> createState() => _AddDressPageState();
+}
+
+class _AddDressPageState extends State<AddDressPage> {
+  final _nameController = TextEditingController();
+  final _colorController = TextEditingController();
+  final _imageUrlController = TextEditingController();
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _colorController.dispose();
+    _imageUrlController.dispose();
+    super.dispose();
+  }
+
+  void _submitDress() {
+    if (_nameController.text.isEmpty ||
+        _colorController.text.isEmpty ||
+        _imageUrlController.text.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Per favore, compila tutti i campi.'),
+          backgroundColor: Colors.red,
+        ),
+      );
+      return;
+    }
+
+    final newDress = Dress(
+      name: _nameController.text,
+      color: _colorController.text,
+      imageUrl: _imageUrlController.text,
+    );
+    widget.onAdd(newDress);
+    Navigator.pop(context); // Torna alla pagina precedente
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Aggiungi un Nuovo Vestito'),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            TextField(
+              controller: _nameController,
+              decoration: const InputDecoration(
+                labelText: 'Nome Vestito',
+                border: OutlineInputBorder(),
+              ),
+            ),
+            const SizedBox(height: 16.0),
+            TextField(
+              controller: _colorController,
+              decoration: const InputDecoration(
+                labelText: 'Colore',
+                border: OutlineInputBorder(),
+              ),
+            ),
+            const SizedBox(height: 16.0),
+            TextField(
+              controller: _imageUrlController,
+              decoration: const InputDecoration(
+                labelText: 'URL Immagine',
+                border: OutlineInputBorder(),
+              ),
+            ),
+            const SizedBox(height: 24.0),
+            ElevatedButton(
+              onPressed: _submitDress,
+              style: ElevatedButton.styleFrom(
+                padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                textStyle: const TextStyle(fontSize: 18),
+              ),
+              child: const Text('Aggiungi Vestito'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+*/

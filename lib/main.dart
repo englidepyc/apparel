@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:apparel/introPage.dart';
+import 'package:apparel/intro_page.dart';
 
 // 1. Define a StatelessWidget for the main application entry point
 void main() {
