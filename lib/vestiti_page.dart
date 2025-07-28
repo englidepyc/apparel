@@ -25,16 +25,6 @@ class _VestitiPageState extends State<VestitiPage> {
         color: 'Nero',
         imageUrl:
             'https://images.unsplash.com/photo-1579737119047-817f300c7f76?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'),
-    Dress(
-        name: 'Vestito Estivo',
-        color: 'Giallo',
-        imageUrl:
-            'https://images.unsplash.com/photo-1621242337777-a8b23c93e430?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'),
-    Dress(
-        name: 'Tuta Elegante',
-        color: 'Blu',
-        imageUrl:
-            'https://images.unsplash.com/photo-1549487494-b1b701d4b684?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'),
   ];
 
   // Metodo per aggiungere un nuovo vestito alla lista
