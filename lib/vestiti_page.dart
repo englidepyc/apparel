@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class Dress {
   final String name;
   final String color;
-  final String imageUrl;
+  final String imageUrl; // Lasciata intenzionalmente
 
   Dress({required this.name, required this.color, required this.imageUrl});
 }
@@ -64,13 +64,16 @@ class _VestitiPageState extends State<VestitiPage> {
               padding: const EdgeInsets.all(12.0),
               child: Row(
                 children: [
+                  // Sostituito l'Image.network con una SizedBox
                   ClipRRect(
                     borderRadius: BorderRadius.circular(8.0),
-                    child: Image.network(
-                      dress.imageUrl,
+                    child: SizedBox(
                       width: 90,
                       height: 90,
-                      fit: BoxFit.cover,
+                      child: Container(
+                        color: Colors.blueGrey[100], // Un colore per visualizzare la Sized Box
+                        child: const Icon(Icons.checkroom, size: 40, color: Colors.blueGrey),
+                      ),
                     ),
                   ),
                   const SizedBox(width: 16.0),
