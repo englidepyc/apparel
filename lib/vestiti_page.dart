@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:apparel/data/dress_database.dart';
 
 // Definizione del modello per il vestito
 class Dress {
@@ -11,88 +12,108 @@ class Dress {
 
 // Pagina principale per visualizzare la lista dei vestiti
 class VestitiPage extends StatefulWidget {
-  const VestitiPage({super.key});
+  final DressDatabase database;
+
+  const VestitiPage({Key? key, required this.database}) : super(key: key);
 
   @override
   State<VestitiPage> createState() => _VestitiPageState();
 }
 
 class _VestitiPageState extends State<VestitiPage> {
-  // Lista di esempio di vestiti
-  final List<Dress> _dresses = [
-    Dress(
-        name: 'Abito da Sera',
-        color: 'Nero',
-        imageUrl:
-            'https://images.unsplash.com/photo-1579737119047-817f300c7f76?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'),
-  ];
-
-  // Metodo per aggiungere un nuovo vestito alla lista
+  /*TODO: Metodo per aggiungere un nuovo vestito alla lista
   void _addDress(Dress newDress) {
     setState(() {
       _dresses.add(newDress);
     });
   }
+  */
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('La Mia Collezione di Vestiti'),
-      ),
-      body: ListView.builder(
-        itemCount: _dresses.length,
-        itemBuilder: (context, index) {
-          final dress = _dresses[index];
-          return Card(
-            margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
-            elevation: 4.0,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10.0),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: Row(
-                children: [
-                  // Sostituito l'Image.network con una SizedBox
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(8.0),
-                    child: SizedBox(
-                      width: 90,
-                      height: 90,
-                      child: Container(
-                        color: Colors.blueGrey[100], // Un colore per visualizzare la Sized Box
-                        child: const Icon(Icons.checkroom, size: 40, color: Colors.blueGrey),
-                      ),
-                    ),
+      appBar: AppBar(title: const Text('La Mia Collezione di Vestiti')),
+      body: StreamBuilder<List<DressData>>(
+        stream: widget.database.getDresses(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            // Initial state, still waiting for the first data
+            return const Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            // Error occurred
+            return Center(child: Text('Error: ${snapshot.error}'));
+          } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+            // No data received or list is empty
+            return const Center(
+              child: Text('No dresses in your collection yet. Add some!'),
+            );
+          } else {
+            final dresses = snapshot.data!;
+            return ListView.builder(
+              itemCount: dresses.length,
+              itemBuilder: (context, index) {
+                final dress = dresses[index];
+                return Card(
+                  margin: const EdgeInsets.symmetric(
+                    vertical: 8.0,
+                    horizontal: 16.0,
                   ),
-                  const SizedBox(width: 16.0),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                  elevation: 4.0,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: Row(
                       children: [
-                        Text(
-                          dress.name,
-                          style: const TextStyle(
-                            fontSize: 18.0,
-                            fontWeight: FontWeight.bold,
+                        // Sostituito l'Image.network con una SizedBox
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(8.0),
+                          child: SizedBox(
+                            width: 90,
+                            height: 90,
+                            child: Container(
+                              color:
+                                  Colors
+                                      .blueGrey[100], // Un colore per visualizzare la Sized Box
+                              child: const Icon(
+                                Icons.checkroom,
+                                size: 40,
+                                color: Colors.blueGrey,
+                              ),
+                            ),
                           ),
                         ),
-                        const SizedBox(height: 4.0),
-                        Text(
-                          'Colore: ${dress.color}',
-                          style: TextStyle(
-                            fontSize: 14.0,
-                            color: Colors.grey[600],
+                        const SizedBox(width: 16.0),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                dress.name,
+                                style: const TextStyle(
+                                  fontSize: 18.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              const SizedBox(height: 4.0),
+                              Text(
+                                'Colore: ${dress.color}',
+                                style: TextStyle(
+                                  fontSize: 14.0,
+                                  color: Colors.grey[600],
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ],
                     ),
                   ),
-                ],
-              ),
-            ),
-          );
+                );
+              },
+            );
+          }
         },
       ),
       floatingActionButton: FloatingActionButton(
