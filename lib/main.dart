@@ -65,7 +65,9 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       title: 'AppArel',
       theme: ThemeData(primarySwatch: Colors.blue),
-      home: IntroPage(), // Our main page where the action happens
+      home: IntroPage(
+        dbToPassDown: database,
+      ), // Our main page where the action happens
     );
   }
 }
