@@ -1,16 +1,21 @@
 # apparel
 
-A new Flutter project.
+## Right now
 
-## Getting Started
+### Progressi:
+* creato semplice db monotabella con drift
+### Up Next:
+* aggiungere le immagini test e l' icona dell'app
+* Ottimizzare e upgradare il db:
+    * Usare i provider per accedere al db anziché passarlo nel widget tree
+    * Capire e definire strategie di migrazione e upgrade
+* Capire i permessi in Flutter
+* Usare i permessi per scattare foto per i vestiti
+* Caricare la struttura multitabella per i vestiti
+* Comcinciare a pensare agli outfit
 
-This project is a starting point for a Flutter application.
+### Cose da rivedere/ usate non capite/ da migliorare
+* gestione dei vari errori/casistiche nello snapshot dello StreamBuilder
+* controllare i pacchetti con flutter pub outdated, flutter pub upgrade e eventualmente modificare
+  pubspec.yaml o aggiornare tutto flutter
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
