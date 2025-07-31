@@ -8,7 +8,7 @@ plugins {
 android {
     namespace = "com.example.apparel"
     compileSdk = flutter.compileSdkVersion
-    ndkVersion = flutter.ndkVersion
+    ndkVersion = "27.0.12077973"  //was 26.3.11579264 flutter.ndkVersion
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11

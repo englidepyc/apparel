@@ -1,15 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:apparel/data/dress_database.dart';
 
-// Definizione del modello per il vestito
-class Dress {
-  final String name;
-  final String color;
-  final String imageUrl; // Lasciata intenzionalmente
-
-  Dress({required this.name, required this.color, required this.imageUrl});
-}
-
 // Pagina principale per visualizzare la lista dei vestiti
 class VestitiPage extends StatefulWidget {
   final DressDatabase database;
@@ -72,15 +63,9 @@ class _VestitiPageState extends State<VestitiPage> {
                           child: SizedBox(
                             width: 90,
                             height: 90,
-                            child: Container(
-                              color:
-                                  Colors
-                                      .blueGrey[100], // Un colore per visualizzare la Sized Box
-                              child: const Icon(
-                                Icons.checkroom,
-                                size: 40,
-                                color: Colors.blueGrey,
-                              ),
+                            child: Image.asset(
+                              '${dress.imageUrl}',
+                              fit: BoxFit.cover, // Or other fit as needed
                             ),
                           ),
                         ),
