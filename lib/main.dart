@@ -27,17 +27,17 @@ class _MyAppState extends State<MyApp> {
       DressCompanion(
         color: Value('Bianco'),
         name: Value("Maglietta Ellesse"),
-        imageUrl: Value("https://example1.com"),
+        imageUrl: Value("assets/test_images/maglietta_coopculture.jpg"),
       ),
       DressCompanion(
         color: Value('Grigio'),
-        name: Value("Pantaloncini"),
-        imageUrl: Value("https://example2.com"),
+        name: Value("Pantalone nero"),
+        imageUrl: Value("assets/test_images/pantalone_nero.jpg"),
       ),
       DressCompanion(
         color: Value('Bianco'),
         name: Value("Polo Coopculture"),
-        imageUrl: Value("https://example3.com"),
+        imageUrl: Value("assets/test_images/maglietta_coopculture.jpg"),
       ),
     ];
 
