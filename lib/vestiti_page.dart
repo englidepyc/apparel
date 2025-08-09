@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:apparel/data/dress_database.dart';
+import 'package:provider/provider.dart';
 
 // Pagina principale per visualizzare la lista dei vestiti
 class VestitiPage extends StatefulWidget {
 
-  const VestitiPage({Key? key}) : super(key: key);
+  const VestitiPage({super.key});
 
   @override
   State<VestitiPage> createState() => _VestitiPageState();
@@ -21,10 +22,12 @@ class _VestitiPageState extends State<VestitiPage> {
 
   @override
   Widget build(BuildContext context) {
+    final database = Provider.of<DressDatabase>(context, listen: false);
+
     return Scaffold(
       appBar: AppBar(title: const Text('La Mia Collezione di Vestiti')),
       body: StreamBuilder<List<DressData>>(
-        stream: widget.database.getDresses(),
+        stream: database.getDresses(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             // Initial state, still waiting for the first data

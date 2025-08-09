@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:apparel/vestiti_page.dart';
-import 'package:apparel/data/dress_database.dart';
 
 class IntroPage extends StatelessWidget {
   const IntroPage({super.key});

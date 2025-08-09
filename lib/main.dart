@@ -7,7 +7,13 @@ import 'package:path_provider/path_provider.dart';
 
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    Provider<DressDatabase>(
+      create: (_) => DressDatabase(),
+      dispose: (_, db) => db.close(),
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {

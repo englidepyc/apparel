@@ -5,8 +5,8 @@
 ### Progressi:
 * ✅creato semplice db monotabella con drift
 ### Up Next:
-* ✅aggiungere le immagini test e l' icona dell'app
-* Usare i provider per accedere al db anziché passarlo nel widget tree (later) (ottimizza anche i tempi di avvio)
+* ✅ aggiungere le immagini test e l' icona dell'app
+* ✅ Usare i provider per accedere al db anziché passarlo nel widget tree (later) (ottimizza anche i tempi di avvio)
 * Capire i permessi in Flutter
 * Usare i permessi per scattare foto per i vestiti
 * Ottimizzare e upgradare il db:
