@@ -3,9 +3,8 @@ import 'package:apparel/data/dress_database.dart';
 
 // Pagina principale per visualizzare la lista dei vestiti
 class VestitiPage extends StatefulWidget {
-  final DressDatabase database;
 
-  const VestitiPage({Key? key, required this.database}) : super(key: key);
+  const VestitiPage({Key? key}) : super(key: key);
 
   @override
   State<VestitiPage> createState() => _VestitiPageState();

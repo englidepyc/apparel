@@ -3,9 +3,7 @@ import 'package:apparel/vestiti_page.dart';
 import 'package:apparel/data/dress_database.dart';
 
 class IntroPage extends StatelessWidget {
-  final DressDatabase dbToPassDown;
-
-  const IntroPage({super.key, required this.dbToPassDown});
+  const IntroPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,8 +18,7 @@ class IntroPage extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder:
-                          (context) => VestitiPage(database: this.dbToPassDown),
+                      builder: (context) => VestitiPage(),
                     ),
                   );
                 },
