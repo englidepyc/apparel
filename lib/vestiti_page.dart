@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:apparel/data/dress_database.dart';
 import 'package:provider/provider.dart';
+import 'package:apparel/add_dress_page.dart';
 
 // Pagina principale per visualizzare la lista dei vestiti
 class VestitiPage extends StatefulWidget {
-
   const VestitiPage({super.key});
 
   @override
@@ -105,13 +105,11 @@ class _VestitiPageState extends State<VestitiPage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          /* TODO: Implementa la logica per aggiungere un nuovo vestito
+          // TODO: Implementa la logica per aggiungere un nuovo vestito
           Navigator.push(
             context,
-            MaterialPageRoute(
-              builder: (context) => AddDressPage(onAdd: _addDress),
-            ),
-          ); */
+            MaterialPageRoute(builder: (context) => AddDressPage()),
+          );
         },
         child: const Icon(Icons.add),
       ),

@@ -23,4 +23,7 @@
         ndkVersion = "27.0.12077973"
         ...
   }
-  ```  
+  ```
+
+### Scelte
+Apro la connessione db con l'async prima di lanciare l'app, tanto la devo aprire sempre (sono 3s)  
