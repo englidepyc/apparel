@@ -84,6 +84,18 @@ class _AddDressPageState extends State<AddDressPage> {
                   textStyle: const TextStyle(fontSize: 18),
                 ),
               ),
+
+              ElevatedButton.icon(
+                onPressed: () {
+                  // This is where the camera logic will go.
+                },
+                icon: const Icon(Icons.save),
+                label: const Text('Save Dress'),
+                style: ElevatedButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  textStyle: const TextStyle(fontSize: 18),
+                ),
+              ),
             ],
           ),
         ),

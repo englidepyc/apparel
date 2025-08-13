@@ -7,8 +7,9 @@
 ### Up Next:
 * ✅ aggiungere le immagini test e l' icona dell'app
 * ✅ Usare i provider per accedere al db anziché passarlo nel widget tree (later) (ottimizza anche i tempi di avvio)
-* Capire i permessi in Flutter
-* Usare i permessi per scattare foto per i vestiti
+* ✅ Capire i permessi in Flutter
+* Usare i permessi per scattare foto per i vestiti (e visualizzarle nella schermata)
+* Salvare il percorso delle img nel db
 * Ottimizzare e upgradare il db:
     * Capire e definire strategie di migrazione e upgrade
     

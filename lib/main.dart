@@ -1,14 +1,19 @@
 import 'package:apparel/data/dress_database.dart';
+import 'package:apparel/services/photo_service.dart';
 import 'package:flutter/material.dart';
 import 'package:apparel/intro_page.dart';
 import 'package:provider/provider.dart';
 
-
 void main() {
   runApp(
-    Provider<DressDatabase>(
-      create: (_) => DressDatabase(),
-      dispose: (_, db) => db.close(),
+    MultiProvider(
+      providers: [
+        Provider<DressDatabase>(
+          create: (context) => DressDatabase(),
+          dispose: (context, db) => db.close(),
+        ),
+        Provider<PhotoService>(create: (context) => PhotoService()),
+      ],
       child: const MyApp(),
     ),
   );
