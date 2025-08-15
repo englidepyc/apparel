@@ -40,7 +40,22 @@ class DressDatabase extends _$DressDatabase {
     return into(dress).insert(entry);
   }
 
-  Future<int> removeDress(int id){
+  Future<int> removeDress(int id) {
     return (delete(dress)..where((t) => t.id.equals(id))).go();
+  }
+
+  //EXTERNAL DATA FUNCTIONS
+  Future<int> insertDressFromData({
+    required String name,
+    required String color,
+    required String imageUrl,
+  }) {
+    return insertDress(
+      DressCompanion(
+        color: Value(color),
+        name: Value(name),
+        imageUrl: Value(imageUrl),
+      ),
+    );
   }
 }

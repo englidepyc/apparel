@@ -16,6 +16,9 @@
 * Caricare la struttura multitabella per i vestiti
 * Comcinciare a pensare agli outfit
 
+### Rifinire
+* Rendere le permissions più carine (prendere la foto subito dopo)
+
 ### Cose da rivedere/ usate non capite/ da migliorare
 * gestione dei vari errori/casistiche nello snapshot dello StreamBuilder
 * capire come creare/utilizzare il local.properties oppure settare flutter gradle plugin senza ricorrere direttamente a 
@@ -26,5 +29,6 @@
   }
   ```
 
-### Scelte
-Apro la connessione db con l'async prima di lanciare l'app, tanto la devo aprire sempre (sono 3s)  
+### Scelte e doc
+* Apro la connessione db con l'async prima di lanciare l'app, tanto la devo aprire sempre (sono 3s)
+* I path sono specificati a partire dalla Documents directory 
