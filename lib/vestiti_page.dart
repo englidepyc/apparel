@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:apparel/data/dress_database.dart';
 import 'package:provider/provider.dart';
 import 'package:apparel/add_dress_page.dart';
+import 'dart:io';
 
-// Pagina principale per visualizzare la lista dei vestiti
 class VestitiPage extends StatefulWidget {
   const VestitiPage({super.key});
 
@@ -12,14 +12,6 @@ class VestitiPage extends StatefulWidget {
 }
 
 class _VestitiPageState extends State<VestitiPage> {
-  /*TODO: Metodo per aggiungere un nuovo vestito alla lista
-  void _addDress(Dress newDress) {
-    setState(() {
-      _dresses.add(newDress);
-    });
-  }
-  */
-
   @override
   Widget build(BuildContext context) {
     final database = Provider.of<DressDatabase>(context, listen: false);
@@ -65,8 +57,8 @@ class _VestitiPageState extends State<VestitiPage> {
                           child: SizedBox(
                             width: 90,
                             height: 90,
-                            child: Image.asset(
-                              '${dress.imageUrl}',
+                            child: Image.file(
+                              File(dress.imageUrl),
                               fit: BoxFit.cover, // Or other fit as needed
                             ),
                           ),
@@ -105,7 +97,6 @@ class _VestitiPageState extends State<VestitiPage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          // TODO: Implementa la logica per aggiungere un nuovo vestito
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => AddDressPage()),

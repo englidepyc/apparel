@@ -1,7 +1,7 @@
 .vscode/
 assets/
-**/*.png
-**/*.jpg
+#**/*.png
+#**/*.jpg
 
 # Miscellaneous
 *.class
