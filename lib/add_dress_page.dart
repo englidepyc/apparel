@@ -21,8 +21,6 @@ class _AddDressPageState extends State<AddDressPage> {
   // Controllers for the text input fields.
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _colorController = TextEditingController();
-  // Variable to hold the dress photo file, it's nullable initially.
-  // This will be used later to display the taken picture.
   File? _dressPhoto;
 
   @override
@@ -92,7 +90,7 @@ class _AddDressPageState extends State<AddDressPage> {
                     });
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('No photo taken')),
+                      const SnackBar(content: Text('No photo taken, try again if permissions just granted')),
                     );
                   }
                 },
@@ -103,6 +101,7 @@ class _AddDressPageState extends State<AddDressPage> {
                   textStyle: const TextStyle(fontSize: 18),
                 ),
               ),
+              
               //SaveButton
               ElevatedButton.icon(
                 onPressed: () async{
@@ -121,7 +120,7 @@ class _AddDressPageState extends State<AddDressPage> {
                   }
 
                   final dressFileName =
-                      "${_nameController.text}_${_colorController.text}_${DateTime.now().toString()}";
+                      "${_nameController.text}_${_colorController.text}.jpg";
                   final dressFilePath =
                       "img"; //TODO: format this advancedly later
 

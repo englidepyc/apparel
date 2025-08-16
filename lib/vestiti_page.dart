@@ -1,3 +1,4 @@
+import 'package:apparel/services/photo_service.dart';
 import 'package:flutter/material.dart';
 import 'package:apparel/data/dress_database.dart';
 import 'package:provider/provider.dart';
@@ -12,6 +13,14 @@ class VestitiPage extends StatefulWidget {
 }
 
 class _VestitiPageState extends State<VestitiPage> {
+  Directory? _docDir;
+
+  @override
+  void initState() async {
+    _docDir = await Provider.of<PhotoService>(context).getDocDir();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     final database = Provider.of<DressDatabase>(context, listen: false);

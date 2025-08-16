@@ -3,10 +3,11 @@ import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:path_provider/path_provider.dart';
 
+///Providing and saving photos locally along with the deviceDocDir
 class PhotoService {
   PermissionStatus _cameraPermissionStatus = PermissionStatus.denied;
   PermissionStatus _storagePermissionStatus = PermissionStatus.denied;
-  File? _imageFile;
+  Future<Directory>? _devDocDir;
 
   // A function to check and request permissions.
 
@@ -15,12 +16,12 @@ class PhotoService {
     _cameraPermissionStatus = await Permission.camera.status;
     _storagePermissionStatus = await Permission.storage.status;
 
-    if(_cameraPermissionStatus.isGranted &&
-        _storagePermissionStatus.isGranted){
-          return true;
+    if (_cameraPermissionStatus.isGranted &&
+        _storagePermissionStatus.isGranted) {
+      return true;
     } else {
-        return false;
-        }
+      return false;
+    }
   }
 
   Future<void> _requestPermissions() async {
@@ -31,9 +32,16 @@ class PhotoService {
     _storagePermissionStatus = statuses[Permission.storage]!;
   }
 
+  Future<Directory> getDocDir() async {
+    return _devDocDir == null
+        ? await getApplicationDocumentsDirectory()
+        : _devDocDir!;
+  }
+
   Future<File?> takePhoto() async {
     final allGranted = await _checkPermissions();
     if (allGranted) {
+      //per l'imagePicker globalmente oltre al return null
       try {
         final imagePicker = ImagePicker();
         final pickedFile = await imagePicker.pickImage(
@@ -54,15 +62,15 @@ class PhotoService {
     }
   }
 
-  /// Don't include .jpg in the imgName, it will be added automatically.
-  Future<File?> savePhoto({
+  /// Include also .jpg in the file name
+  Future<void> savePhoto({
     required String imgFolderPathString,
     required String imgName,
     required File photoFile,
   }) async {
     try {
       final appDocDir = await getApplicationDocumentsDirectory();
-      imgName = '${imgName}.jpg';
+      imgName = '${imgName}';
       final Directory imgDir = Directory(
         '${appDocDir.path}/${imgFolderPathString}',
       );
@@ -70,9 +78,7 @@ class PhotoService {
         await imgDir.create(recursive: true);
       }
       final String newPath = '${imgDir.path}/$imgName';
-      final savedImage = await photoFile.copy(newPath);
-      _imageFile = savedImage;
-      return _imageFile;
+      await photoFile.copy(newPath);
     } catch (e) {
       print('Error saving photo: $e');
       return null;
