@@ -12,7 +12,7 @@ void main() {
           create: (context) => DressDatabase(),
           dispose: (context, db) => db.close(),
         ),
-        Provider<PhotoService>(create: (context) => PhotoService()),
+        FutureProvider<PhotoService?>(create: (context) => PhotoService.create(), initialData: null),
       ],
       child: const MyApp(),
     ),

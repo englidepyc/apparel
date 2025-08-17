@@ -7,10 +7,17 @@ import 'package:path_provider/path_provider.dart';
 class PhotoService {
   PermissionStatus _cameraPermissionStatus = PermissionStatus.denied;
   PermissionStatus _storagePermissionStatus = PermissionStatus.denied;
-  Future<Directory>? _devDocDir;
+  late Directory devDocDir;
+
+  //handling the async initializations here rather than in the widgets
+  PhotoService._(this.devDocDir);
+
+  static Future<PhotoService> create() async {
+    final Directory docDir = await getApplicationDocumentsDirectory();
+    return PhotoService._(docDir);
+  }
 
   // A function to check and request permissions.
-
   Future<bool> _checkPermissions() async {
     // Check the current status of camera and storage permissions.
     _cameraPermissionStatus = await Permission.camera.status;
@@ -30,12 +37,6 @@ class PhotoService {
     final statuses = await [Permission.camera, Permission.storage].request();
     _cameraPermissionStatus = statuses[Permission.camera]!;
     _storagePermissionStatus = statuses[Permission.storage]!;
-  }
-
-  Future<Directory> getDocDir() async {
-    return _devDocDir == null
-        ? await getApplicationDocumentsDirectory()
-        : _devDocDir!;
   }
 
   Future<File?> takePhoto() async {
@@ -69,10 +70,9 @@ class PhotoService {
     required File photoFile,
   }) async {
     try {
-      final appDocDir = await getApplicationDocumentsDirectory();
       imgName = '${imgName}';
       final Directory imgDir = Directory(
-        '${appDocDir.path}/${imgFolderPathString}',
+        '${devDocDir.path}/${imgFolderPathString}',
       );
       if (!await imgDir.exists()) {
         await imgDir.create(recursive: true);
