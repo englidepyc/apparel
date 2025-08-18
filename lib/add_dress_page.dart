@@ -4,8 +4,8 @@ import 'package:apparel/data/dress_database.dart';
 import 'package:provider/provider.dart';
 import 'package:apparel/services/photo_service.dart';
 
-//TODO: risolvere freeze con op asincrone, 
-//controllare bene che i path siano giusti (anche nel service), 
+//TODO: risolvere freeze con op asincrone,
+//controllare bene che i path siano giusti (anche nel service),
 //come viene presa l'immagine nel vestiti page,
 //pensare al db
 
@@ -33,6 +33,11 @@ class _AddDressPageState extends State<AddDressPage> {
 
   @override
   Widget build(BuildContext context) {
+    final photoService = Provider.of<PhotoService?>(
+      context,
+      listen: true,
+    ); //provo con il listen true e gli if;
+
     return Scaffold(
       appBar: AppBar(title: const Text('Add Dress')),
       body: SingleChildScrollView(
@@ -82,16 +87,30 @@ class _AddDressPageState extends State<AddDressPage> {
               // Take Photo Button
               ElevatedButton.icon(
                 onPressed: () async {
-                  _dressPhoto =
-                      await Provider.of<PhotoService>(context, listen: false).takePhoto();
-                  if (_dressPhoto != null) {
-                    setState(() {
-                      // Update the state to reflect that a photo has been taken.
-                    });
+                  if (photoService != null) {
+                    _dressPhoto =
+                        await photoService!.takePhoto();
+                    if (_dressPhoto != null) {
+                      setState(() {
+                        // Update the state to reflect that a photo has been taken.
+                      });
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text(
+                            'No photo taken, try again if permissions just granted',
+                          ),
+                        ),
+                      );
+                    }
                   } else {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('No photo taken, try again if permissions just granted')),
-                    );
+                    setState(() {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('PhotoService not yet initialized'),
+                        ),
+                      );
+                    });
                   }
                 },
                 icon: const Icon(Icons.add_a_photo),
@@ -101,10 +120,10 @@ class _AddDressPageState extends State<AddDressPage> {
                   textStyle: const TextStyle(fontSize: 18),
                 ),
               ),
-              
+
               //SaveButton
               ElevatedButton.icon(
-                onPressed: () async{
+                onPressed: () {
                   //controlliamo che tutto sia compilato
                   if (_nameController.text.isEmpty ||
                       _colorController.text.isEmpty ||
@@ -118,26 +137,29 @@ class _AddDressPageState extends State<AddDressPage> {
                     );
                     return;
                   }
+                  if (photoService != null) {
+                    final dressFileName =
+                        "${_nameController.text}_${_colorController.text}.jpg";
+                    final dressFilePath =
+                        "img"; //TODO: format this advancedly later
 
-                  final dressFileName =
-                      "${_nameController.text}_${_colorController.text}.jpg";
-                  final dressFilePath =
-                      "img"; //TODO: format this advancedly later
+                    //SAVING THE PHOTO
+                    Provider.of<PhotoService>(context, listen: false).savePhoto(
+                      imgFolderPathString: dressFilePath,
+                      imgName: dressFileName,
+                      photoFile: _dressPhoto!,
+                    );
 
-                  //SAVING THE PHOTO
-                  await Provider.of<PhotoService>(context, listen: false).savePhoto(
-                    imgFolderPathString: dressFilePath,
-                    imgName: dressFileName,
-                    photoFile: _dressPhoto!,
-                  );
-
-                  //SAVING TO DB
-                  Provider.of<DressDatabase>(context, listen: false)
-                      .insertDressFromData(
-                        name: _nameController.text,
-                        color: _colorController.text,
-                        imageUrl: "$dressFilePath/$dressFileName.jpg",
-                      )
+                    //SAVING TO DB
+                    Provider.of<DressDatabase>(
+                      context,
+                      listen: false,
+                    ).insertDressFromData(
+                      name: _nameController.text,
+                      color: _colorController.text,
+                      imageUrl: "$dressFilePath/$dressFileName",
+                    );
+                    /*
                       .then((value) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
@@ -150,7 +172,16 @@ class _AddDressPageState extends State<AddDressPage> {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(content: Text('Error saving dress: $error')),
                         );
-                      });
+                      });*/
+                  } else {
+                    setState(() {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('PhotoService not yet initialized'),
+                        ),
+                      );
+                    });
+                  }
                 },
 
                 icon: const Icon(Icons.save),
