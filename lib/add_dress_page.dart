@@ -35,7 +35,7 @@ class _AddDressPageState extends State<AddDressPage> {
   Widget build(BuildContext context) {
     final photoService = Provider.of<PhotoService?>(
       context,
-      listen: true,
+      listen: false,
     ); //provo con il listen true e gli if;
 
     return Scaffold(
@@ -88,8 +88,7 @@ class _AddDressPageState extends State<AddDressPage> {
               ElevatedButton.icon(
                 onPressed: () async {
                   if (photoService != null) {
-                    _dressPhoto =
-                        await photoService!.takePhoto();
+                    _dressPhoto = await photoService!.takePhoto();
                     if (_dressPhoto != null) {
                       setState(() {
                         // Update the state to reflect that a photo has been taken.
@@ -123,7 +122,7 @@ class _AddDressPageState extends State<AddDressPage> {
 
               //SaveButton
               ElevatedButton.icon(
-                onPressed: () {
+                onPressed: () async {
                   //controlliamo che tutto sia compilato
                   if (_nameController.text.isEmpty ||
                       _colorController.text.isEmpty ||
@@ -142,16 +141,17 @@ class _AddDressPageState extends State<AddDressPage> {
                         "${_nameController.text}_${_colorController.text}.jpg";
                     final dressFilePath =
                         "img"; //TODO: format this advancedly later
-
+                        
                     //SAVING THE PHOTO
-                    Provider.of<PhotoService>(context, listen: false).savePhoto(
+                    await photoService.savePhoto(
                       imgFolderPathString: dressFilePath,
                       imgName: dressFileName,
                       photoFile: _dressPhoto!,
                     );
-
+                    print("Saved using PhotoService!");
+                    
                     //SAVING TO DB
-                    Provider.of<DressDatabase>(
+                    await Provider.of<DressDatabase>(
                       context,
                       listen: false,
                     ).insertDressFromData(
@@ -159,6 +159,7 @@ class _AddDressPageState extends State<AddDressPage> {
                       color: _colorController.text,
                       imageUrl: "$dressFilePath/$dressFileName",
                     );
+                    print("db executed!");
                     /*
                       .then((value) {
                         ScaffoldMessenger.of(context).showSnackBar(
@@ -181,6 +182,7 @@ class _AddDressPageState extends State<AddDressPage> {
                         ),
                       );
                     });
+                 
                   }
                 },
 
