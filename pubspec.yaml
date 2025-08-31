@@ -42,6 +42,14 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_launcher_icons: ^0.14.4 # Use the latest version
+  # The "flutter_lints" package below contains a set of recommended lints to
+  # encourage good coding practices. The lint set provided by the package is
+  # activated in the `analysis_options.yaml` file located at the root of your
+  # package. See that file for information about deactivating specific lint
+  # rules and activating additional ones.
+  flutter_lints: ^5.0.0
+  drift_dev: ^2.17.0 # Use the same version as drift
+  build_runner: ^2.4.9 # For code generation
 
 flutter_launcher_icons:
   android: true
@@ -51,14 +59,7 @@ flutter_launcher_icons:
   # adaptive_icon_foreground: "assets/icon/foreground.png" # Optional: for adaptive icons
   # adaptive_icon_background: "#ffffff" # Optional: for adaptive icons, or an image path
 
-  # The "flutter_lints" package below contains a set of recommended lints to
-  # encourage good coding practices. The lint set provided by the package is
-  # activated in the `analysis_options.yaml` file located at the root of your
-  # package. See that file for information about deactivating specific lint
-  # rules and activating additional ones.
-  flutter_lints: ^5.0.0
-  drift_dev: ^2.17.0 # Use the same version as drift
-  build_runner: ^2.4.9 # For code generation
+
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
