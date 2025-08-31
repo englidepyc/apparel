@@ -36,7 +36,7 @@ class _AddDressPageState extends State<AddDressPage> {
     final photoService = Provider.of<PhotoService?>(
       context,
       listen: false,
-    ); //provo con il listen true e gli if;
+    );//viene controllato a parte se il ps è attivato
 
     return Scaffold(
       appBar: AppBar(title: const Text('Add Dress')),
@@ -88,7 +88,7 @@ class _AddDressPageState extends State<AddDressPage> {
               ElevatedButton.icon(
                 onPressed: () async {
                   if (photoService != null) {
-                    _dressPhoto = await photoService!.takePhoto();
+                    _dressPhoto = await photoService.takePhoto();
                     if (_dressPhoto != null) {
                       setState(() {
                         // Update the state to reflect that a photo has been taken.
@@ -103,7 +103,7 @@ class _AddDressPageState extends State<AddDressPage> {
                       );
                     }
                   } else {
-                    setState(() {
+                    setState(() { //TODO: vedi cosa succede se togli il setState
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
                           content: Text('PhotoService not yet initialized'),
@@ -160,20 +160,7 @@ class _AddDressPageState extends State<AddDressPage> {
                       imageUrl: "$dressFilePath/$dressFileName",
                     );
                     print("db executed!");
-                    /*
-                      .then((value) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text('Dress saved successfully'),
-                          ),
-                        );
-                        Navigator.pop(context); // Go back to the previous page.
-                      })
-                      .catchError((error) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text('Error saving dress: $error')),
-                        );
-                      });*/
+                    
                   } else {
                     setState(() {
                       ScaffoldMessenger.of(context).showSnackBar(
@@ -182,7 +169,6 @@ class _AddDressPageState extends State<AddDressPage> {
                         ),
                       );
                     });
-                 
                   }
                 },
 
