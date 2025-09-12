@@ -156,7 +156,7 @@ class _AddDressPageState extends State<AddDressPage> {
                     ).insertDressFromData(
                       name: _nameController.text,
                       color: _colorController.text,
-                      imageUrl: "$dressFilePath/$dressFileName",
+                      imageUrl: "${photoService.devDocDir.path}/$dressFilePath/$dressFileName",
                     );
                     
                   } else {

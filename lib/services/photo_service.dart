@@ -8,6 +8,7 @@ class PhotoService {
   PermissionStatus _cameraPermissionStatus = PermissionStatus.denied;
   PermissionStatus _storagePermissionStatus = PermissionStatus.denied;
   late Directory devDocDir;
+  Directory get getDevDocDir => devDocDir;
 
   //handling the async initializations here rather than in the widgets
   PhotoService._(this.devDocDir);
