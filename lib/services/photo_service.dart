@@ -64,24 +64,24 @@ class PhotoService {
   }
 
   /// Include also .jpg in the file name
-  Future<void> savePhoto({
+  Future<bool> savePhoto({
     required String imgFolderPathString,
     required String imgName,
     required File photoFile,
   }) async {
     try {
-      imgName = '${imgName}';
       final Directory imgDir = Directory(
-        '${devDocDir.path}/${imgFolderPathString}',
+        '${devDocDir.path}/$imgFolderPathString',
       );
       if (!await imgDir.exists()) {
         await imgDir.create(recursive: true);
       }
       final String newPath = '${imgDir.path}/$imgName';
       await photoFile.copy(newPath);
+      return true;
     } catch (e) {
       print('Error saving photo: $e');
-      return null;
+      return false;
     }
   }
 }

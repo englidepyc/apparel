@@ -148,7 +148,6 @@ class _AddDressPageState extends State<AddDressPage> {
                       imgName: dressFileName,
                       photoFile: _dressPhoto!,
                     );
-                    print("Saved using PhotoService!");
                     
                     //SAVING TO DB
                     await Provider.of<DressDatabase>(
@@ -159,7 +158,6 @@ class _AddDressPageState extends State<AddDressPage> {
                       color: _colorController.text,
                       imageUrl: "$dressFilePath/$dressFileName",
                     );
-                    print("db executed!");
                     
                   } else {
                     setState(() {
