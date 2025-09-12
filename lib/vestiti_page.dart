@@ -12,10 +12,12 @@ class VestitiPage extends StatefulWidget {
 }
 
 class _VestitiPageState extends State<VestitiPage> {
+  
+  
   @override
   Widget build(BuildContext context) {
     final database = Provider.of<DressDatabase>(context, listen: false);
-
+    
     return Scaffold(
       appBar: AppBar(title: const Text('La Mia Collezione di Vestiti')),
       body: StreamBuilder<List<DressData>>(
@@ -107,99 +109,3 @@ class _VestitiPageState extends State<VestitiPage> {
     );
   }
 }
-
-/*
-// Pagina per aggiungere un nuovo vestito
-class AddDressPage extends StatefulWidget {
-  final Function(Dress) onAdd;
-
-  const AddDressPage({super.key, required this.onAdd});
-
-  @override
-  State<AddDressPage> createState() => _AddDressPageState();
-}
-
-class _AddDressPageState extends State<AddDressPage> {
-  final _nameController = TextEditingController();
-  final _colorController = TextEditingController();
-  final _imageUrlController = TextEditingController();
-
-  @override
-  void dispose() {
-    _nameController.dispose();
-    _colorController.dispose();
-    _imageUrlController.dispose();
-    super.dispose();
-  }
-
-  void _submitDress() {
-    if (_nameController.text.isEmpty ||
-        _colorController.text.isEmpty ||
-        _imageUrlController.text.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Per favore, compila tutti i campi.'),
-          backgroundColor: Colors.red,
-        ),
-      );
-      return;
-    }
-
-    final newDress = Dress(
-      name: _nameController.text,
-      color: _colorController.text,
-      imageUrl: _imageUrlController.text,
-    );
-    widget.onAdd(newDress);
-    Navigator.pop(context); // Torna alla pagina precedente
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Aggiungi un Nuovo Vestito'),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            TextField(
-              controller: _nameController,
-              decoration: const InputDecoration(
-                labelText: 'Nome Vestito',
-                border: OutlineInputBorder(),
-              ),
-            ),
-            const SizedBox(height: 16.0),
-            TextField(
-              controller: _colorController,
-              decoration: const InputDecoration(
-                labelText: 'Colore',
-                border: OutlineInputBorder(),
-              ),
-            ),
-            const SizedBox(height: 16.0),
-            TextField(
-              controller: _imageUrlController,
-              decoration: const InputDecoration(
-                labelText: 'URL Immagine',
-                border: OutlineInputBorder(),
-              ),
-            ),
-            const SizedBox(height: 24.0),
-            ElevatedButton(
-              onPressed: _submitDress,
-              style: ElevatedButton.styleFrom(
-                padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
-                textStyle: const TextStyle(fontSize: 18),
-              ),
-              child: const Text('Aggiungi Vestito'),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-*/

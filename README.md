@@ -18,6 +18,10 @@
 
 ### Rifinire
 * Rendere le permissions più carine (prendere la foto subito dopo)
+<<<<<<< HEAD
+=======
+* Ottimizzare nativamente per Android (salvare le immagini in Android > media anziché Android > data (getApplicationDocumentsDirectory())) tramite platform checks, conditional imports e Platform Channels
+>>>>>>> debug_add_dress
 
 ### Cose da rivedere/ usate non capite/ da migliorare
 * gestione dei vari errori/casistiche nello snapshot dello StreamBuilder

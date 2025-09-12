@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
 import 'package:path_provider/path_provider.dart';
@@ -36,7 +35,7 @@ class DressDatabase extends _$DressDatabase {
     return select(dress).watch();
   }
 
-  Future<int> insertDress(DressCompanion entry) {
+  Future<int> insertDress(DressCompanion entry) async {
     return into(dress).insert(entry);
   }
 
@@ -49,7 +48,7 @@ class DressDatabase extends _$DressDatabase {
     required String name,
     required String color,
     required String imageUrl,
-  }) {
+  }) async {
     return insertDress(
       DressCompanion(
         color: Value(color),
